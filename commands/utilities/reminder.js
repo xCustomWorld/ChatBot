@@ -1,6 +1,8 @@
 // From CustomBot
 // Copyright (c) CustomWorld 2019. (Almost) all rights reserved.
 
+//TODO: Persistent reminds that can survive restarts. More complex and difficult, but the result will be way better.
+
 exports.run = (client, message, args) => {
     let remind = args.slice(2).join(' ');
     if (!remind) remind = 'This is the reminder you asked me to send';
