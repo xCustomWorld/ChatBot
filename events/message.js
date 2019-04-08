@@ -72,13 +72,21 @@ module.exports = message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     let cmd;
-    if (client.commands.has(command)) {
+    /*if (client.commands.has(command)) {
         cmd = client.commands.get(command);
     } else if (client.aliases.has(command)) {
         cmd = client.commands.get(client.aliases.get(command));
     } else {
         return message.reply(':frowning: I don\'t recognize that command. Do ' + prefix + 'help to see all of my commands. If you belive this is in error then dm <@251055152667164676>');
-    }
+    }*/
+    
+    // A better way how to pick-pocket commands from files and it takes only 2 lines. You might need to test it though.
+    const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
+    if (!cmd) return message.channel.send("I do not recognize that command.");
+    // I noticed that you haven't got if command is enabled or disabled part in your code, or I just haven't found it. If you have your
+    // own system, you might want to remove following line:
+    if (cmd.conf.enabled == false) return message.channel.send("Sorry, this command is disabled.");
+    
     const perms = client.elevation(message, cmd.conf.permLevel);
     if (perms === 'fail') return;
     if (perms < cmd.conf.permLevel) return message.reply(`You do not have permission to do this! You need Permlevel ${cmd.conf.permLevel} but you only have Permlevel ${perms}`);
