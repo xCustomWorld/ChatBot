@@ -71,6 +71,9 @@ function loadModule(ModuleFolder) {
     main.verbose('------------------------------------------------');
 }
 
+// Loading the ChatBot module.
+client.on("message", require(`./util/chatbot.js`).bind(null, client));
+
 function ele() {
     /* istanbul ignore next */
     client.elevation = (message, lvl) => {
