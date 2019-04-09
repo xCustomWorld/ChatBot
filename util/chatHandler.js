@@ -1,5 +1,5 @@
 const apiai = require('apiai');
-const chat = apiai('e31ba42e7b5f43f093842cd860f62f56');
+const chat = apiai(process.env.APIAI_TOKEN); //e31ba42e7b5f43f093842cd860f62f56 - you better hide this
 const rn = require('random-number');
 
 var numOptions = {
@@ -9,7 +9,7 @@ var numOptions = {
 };
 exports.run = async (client, message) => {
     if (message.content.includes('Cancel')) {
-        var request = chat.deleteContextsRequest({ // here we introduce the "request" to the computer
+        var request = chat.deleteContextsRequest({
             sessionId: message.author.id
         });
 
